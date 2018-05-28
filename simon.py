@@ -43,6 +43,8 @@ def drawCircle():
 def computerTurn():
     global width
     global order
+    global colors
+    global sqaures
     # pick a random tile
     tile = random.randint(0, 3)
     # add it to the order list
@@ -97,6 +99,8 @@ def changeShade(color, x, y, width):
 
 # ?? not sure how this method is working or how to implement it correctly
 def playerTurn():
+    global colors
+    global sqaures
     for tile in order:
         if mousePressed():
             pressedX = mouseX()
