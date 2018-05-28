@@ -1,25 +1,39 @@
 from Draw import *
 import random
 
+# 0 - green, 1 - yellow, 2 - red, 3 - blue
+# list of x,y coordinates of the 4 tiles
 sqaures = [(100, 100), (100, 300), (300, 100), (300, 300)]
+
+# list of tuples of colors- the first is normal color of the tile
+# the second if the 'pressed' color of the tile
 colors = [(GREEN, DARK_GREEN), (YELLOW, WHITE), (RED, DARK_RED), (BLUE, DARK_BLUE)]
+
+# initialize empty list to keep track of randomly selected tiles
 order = []
+
+# global variable of the width of each square
 width = 200
 
 
 def startScreen(): 
+    global width
     setCanvasSize(600, 600)
+    # four squares of different colors at (100, 100), (300, 100), (100, 300), (300, 300)
+    # all 200 wide and long    
     drawSq(GREEN, 100, 100, width)
     drawSq(YELLOW, 100, 300, width)
     drawSq(RED, 300, 100, width)
     drawSq(BLUE, 300, 300, width)
     drawCircle()
-# four squares of different colors at (100, 100), (300, 100), (100, 300), (300, 300)
-# all 200 wide and long
+
+# function that takes in the color of a tile, the x, y coordinates and width
+# and draw the square
 def drawSq(color, x, y, w):
     setColor(color)
-    filledRect(x, y, width, width)
+    filledRect(x, y, w, w)
 
+# function that draws the circle in the middle 
 def drawCircle():
     setColor(BLACK)
     # black circle in the middle of the canvas
@@ -28,12 +42,17 @@ def drawCircle():
 
 def computerTurn():
     global width
+    global order
+    # pick a random tile
     tile = random.randint(0, 3)
+    # add it to the order list
     order.append(tile)
     print(order)
+    # in the computer turn, the tiles each are 'pressed' once in order
+    # so change the color to 'pressed' color and then back
     for sq in order:
-        changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
         changeShade(colors[sq][1], sqaures[sq][0], sqaures[sq][1], width)
+        changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
         #if sq == 0:
             #changeShade(DARK_GREEN, sqaures[
         #elif sq == 1:
@@ -58,7 +77,8 @@ def computerTurn():
             #drawCircle()            
             #show(1000)
             
-# 0 is green, 1 is yellow, 2 is red, 3 is blue           
+# 0 - green, 1 - yellow, 2 - red, 3 - blue   
+# returns the number corresponding to the tile clicked
 def determineSqClicked(x, y):
     if 100 <= x < 300 and 100 <= y < 300:
         return 0
@@ -68,12 +88,14 @@ def determineSqClicked(x, y):
         return 2
     else:
         return 3
-    
+
+# function that redraws the board with input     
 def changeShade(color, x, y, width):
     drawSq(color, x, y, width)
     drawCircle()            
-    show(2000)  
+    show(1000)  
 
+# ?? not sure how this method is working or how to implement it correctly
 def playerTurn():
     for tile in order:
         if mousePressed():
