@@ -17,9 +17,17 @@ width = 200
 def startScreen(): 
     global width
     setCanvasSize(600, 600)
+    
+    # background color
+    BEIGE = color(245, 225, 144)
+    setBackground(BEIGE)    
+    
+    # words
     setFontSize(32)
     string("SIMON", 250, 30)
     string("Try to copy the sequence!", 115, 60)
+    
+    # board
     drawSq(DARK_GREEN, 100, 100, width)
     drawSq(DARK_YELLOW, 100, 300, width)
     drawSq(DARK_RED, 300, 100, width)
