@@ -2,17 +2,24 @@ from Draw import *
 import random
 
 sqaures = [(100, 100), (100, 300), (300, 100), (300, 300)]
-colors = [(GREEN, DARK_GREEN), (YELLOW, WHITE), (RED, DARK_RED), (BLUE, DARK_BLUE)]
+
+DARK_YELLOW = color(198, 187, 35)
+colors = [(GREEN, DARK_GREEN), (YELLOW, DARK_YELLOW), (RED, DARK_RED), (BLUE, DARK_BLUE)]
 order = []
 width = 200
 
 
+
+
 def startScreen(): 
     setCanvasSize(600, 600)
-    drawSq(GREEN, 100, 100, width)
-    drawSq(YELLOW, 100, 300, width)
-    drawSq(RED, 300, 100, width)
-    drawSq(BLUE, 300, 300, width)
+    setFontSize(32)
+    string("SIMON", 250, 30)
+    string("Try to copy the sequence!", 115, 60)
+    drawSq(DARK_GREEN, 100, 100, width)
+    drawSq(DARK_YELLOW, 100, 300, width)
+    drawSq(DARK_RED, 300, 100, width)
+    drawSq(DARK_BLUE, 300, 300, width)
     drawCircle()
 # four squares of different colors at (100, 100), (300, 100), (100, 300), (300, 300)
 # all 200 wide and long
@@ -32,8 +39,8 @@ def computerTurn():
     order.append(tile)
     print(order)
     for sq in order:
-        changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
         changeShade(colors[sq][1], sqaures[sq][0], sqaures[sq][1], width)
+        changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
         #if sq == 0:
             #changeShade(DARK_GREEN, sqaures[
         #elif sq == 1:
