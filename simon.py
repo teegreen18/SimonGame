@@ -113,7 +113,7 @@ def playerTurn():
     global sqaures
     
     tile = 0
-    while tile < len(order):
+    while tile <= len(order):
         if mousePressed():
             pressedX = mouseX()
             pressedY = mouseY()
@@ -124,7 +124,8 @@ def playerTurn():
             
             if tilePressed != tile:
                 return False  
-            
+                
+                
             # move onto the next tile in the sequence
             # if the player didn't click, will continue through the while loop
             tile += 1 
@@ -147,7 +148,7 @@ def playerTurn():
                     
 def playGame():
     startScreen()
-    time.sleep(2)
+    time.sleep(2) # pause after startup before showing sequence
     while True:
         computerTurn()
         playerTurn()
