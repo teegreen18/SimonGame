@@ -103,24 +103,43 @@ def changeShade(color, x, y, width):
 def playerTurn():
     global colors
     global sqaures
-    for tile in order:
+    
+    tile = 0
+    while tile < len(order):
         if mousePressed():
             pressedX = mouseX()
             pressedY = mouseY()
             
             tilePressed = determineSqClicked(pressedX, pressedY)
             changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
-            changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
-            
+            changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
             
             if tilePressed != tile:
-                return False 
-        else:
-            time.sleep(10000000)
+                return False  
+            
+            # move onto the next tile in the sequence
+            # if the player didn't click, will continue through the while loop
+            tile += 1 
+            
+    #for tile in order:
+        #if mousePressed():
+            #pressedX = mouseX()
+            #pressedY = mouseY()
+            
+            #tilePressed = determineSqClicked(pressedX, pressedY)
+            #changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
+            #changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
+            
+            
+            #if tilePressed != tile:
+                #return False 
+        #else:
+            #time.sleep(10000000)
     return True
                     
 def playGame():
     startScreen()
+    time.sleep(2)
     while True:
         computerTurn()
         playerTurn()
