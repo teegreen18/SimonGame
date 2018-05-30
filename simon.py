@@ -50,6 +50,10 @@ def drawCircle():
 def checkMousePressed():
     return mouseX(), mouseY()
 
+def lightUp(index):
+    changeShade(colors[index][0], sqaures[index][0], sqaures[index][1], width)
+    changeShade(colors[index][1], sqaures[index][0], sqaures[index][1], width)    
+    
 def computerTurn(tryAgain=False):
     global width
     global order
@@ -68,8 +72,12 @@ def computerTurn(tryAgain=False):
     # in the computer turn, the tiles each are 'pressed' once in order
     # so change the color to 'pressed' color and then back
     for sq in order:
-        changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
-        changeShade(colors[sq][1], sqaures[sq][0], sqaures[sq][1], width)
+        lightUp(sq)
+        
+        #changeShade(colors[sq][0], sqaures[sq][0], sqaures[sq][1], width)
+        #changeShade(colors[sq][1], sqaures[sq][0], sqaures[sq][1], width)
+       
+       
         #if sq == 0:
             #changeShade(DARK_GREEN, sqaures[
         #elif sq == 1:
@@ -120,18 +128,21 @@ def playerTurn():
     tile = 0
     playerTiles = []
     
-    while tile <= len(order):
+    while tile <= len(order):  # while still attempting to put in the sequence
         if mousePressed():
             pressedX, pressedY = checkMousePressed()
+            tilePressed = determineSqClicked(pressedX, pressedY) # determining which tile was pressed
             
-            tilePressed = determineSqClicked(pressedX, pressedY)
-            changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
-            changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
+            # lighting up and then changing back
+            lightUp(tilePressed)
+            
+            #changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
+            #changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
             
             playerTiles.append(tilePressed)
             
-            #if tilePressed != tile:
-                #return False  
+            if tilePressed != tile:
+                return False  
                 
                 
             # move onto the next tile in the sequence
