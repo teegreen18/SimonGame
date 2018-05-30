@@ -111,7 +111,7 @@ def determineSqClicked(x, y):
         return 1
     elif 300 < x <= 500 and 100 <= y < 300:
         return 2
-    else:
+    elif 300 < x <= 500 and 300 <= y < 500:
         return 3
 
 # function that redraws the board with input     
@@ -130,24 +130,23 @@ def playerTurn():
     
     while tile <= len(order):  # while still attempting to put in the sequence
         if mousePressed():
+            print("hello")
             pressedX, pressedY = checkMousePressed()
             tilePressed = determineSqClicked(pressedX, pressedY) # determining which tile was pressed
             
-            # lighting up and then changing back
-            lightUp(tilePressed)
-            
-            #changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
-            #changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
-            
-            playerTiles.append(tilePressed)
-            
-            if tilePressed != tile:
-                return False  
+            # if a tile was actually pressed instead of somewhere else on the screen
+            if tilePressed:
+                # lighting up and then changing back
+                lightUp(tilePressed)
                 
+                #changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
+                #changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
                 
-            # move onto the next tile in the sequence
-            # if the player didn't click, will continue through the while loop
-            tile += 1 
+                playerTiles.append(tilePressed)               
+                    
+                # move onto the next tile in the sequence
+                # if the player didn't click, will continue through the while loop
+                tile += 1 
             
     #for tile in order:
         #if mousePressed():
