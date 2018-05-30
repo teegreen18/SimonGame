@@ -46,6 +46,9 @@ def drawCircle():
     # black circle in the middle of the canvas
     # the x, y = 250, diameter = 75
     filledOval(250, 250, 110, 110)
+    
+def checkMousePressed():
+    return mouseX(), mouseY()
 
 def computerTurn():
     global width
@@ -115,8 +118,7 @@ def playerTurn():
     tile = 0
     while tile <= len(order):
         if mousePressed():
-            pressedX = mouseX()
-            pressedY = mouseY()
+            pressedX, pressedY = checkMousePressed()
             
             tilePressed = determineSqClicked(pressedX, pressedY)
             changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
