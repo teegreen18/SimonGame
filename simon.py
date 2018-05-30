@@ -50,18 +50,20 @@ def drawCircle():
 def checkMousePressed():
     return mouseX(), mouseY()
 
-def computerTurn():
+def computerTurn(tryAgain=False):
     global width
     global order
     global colors
     global sqaures
     
-    seqSize = 5 # amount of tiles in the sequence 
-    for i in range(seqSize):
-        # pick a random tile
-        tile = random.randint(0, 3)
-        # add it to the order list
-        order.append(tile)
+    if not tryAgain:
+        seqSize = 5 # amount of tiles in the sequence 
+        for i in range(seqSize):
+            # pick a random tile
+            tile = random.randint(0, 3)
+            # add it to the order list
+            order.append(tile)
+        
     print(order)
     # in the computer turn, the tiles each are 'pressed' once in order
     # so change the color to 'pressed' color and then back
@@ -173,13 +175,14 @@ def showSuccessMessage():
 def showFailMessage():
     string("You almost had it! Let's try it again...", 100, 80)
     time.sleep(3)
-    startScreen()    
-                    
+    startScreen()  
+       
 def playGame():
     startScreen()
     time.sleep(2) # pause after startup before showing sequence
     while True:
         computerTurn()
-        playerTurn()
-        # fix to add in True and False returns of playerTurn()
+        status = playerTurn()
+        if not status:
+            computerTurn(tryAgain = True)   # giving the player a chance to do the same one again
 playGame()
