@@ -116,6 +116,8 @@ def playerTurn():
     global sqaures
     
     tile = 0
+    playerTiles = []
+    
     while tile <= len(order):
         if mousePressed():
             pressedX, pressedY = checkMousePressed()
@@ -124,8 +126,10 @@ def playerTurn():
             changeShade(colors[tilePressed][0], sqaures[tilePressed][0], sqaures[tilePressed][1], width)
             changeShade(colors[tilePressed][1], sqaures[tilePressed][0], sqaures[tilePressed][1], width)   
             
-            if tilePressed != tile:
-                return False  
+            playerTiles.append(tilePressed)
+            
+            #if tilePressed != tile:
+                #return False  
                 
                 
             # move onto the next tile in the sequence
@@ -146,7 +150,30 @@ def playerTurn():
                 #return False 
         #else:
             #time.sleep(10000000)
+    print(playerTiles)
+    
+    if matchesComputer(playerTiles, order):
+        showSuccessMessage()
+        return True
+    else:
+        showFailMessage()
+        return False
+
+def matchesComputer(platerTiles, order):
+    for i in range(len(order)):
+        if order[i] != playerTiles[i]:
+            return False
     return True
+
+def showSuccessMessage():
+    string("You got it! Let's make this harder...", 100, 80)
+    time.sleep(3)
+    startScreen()
+    
+def showFailMessage():
+    string("You almost had it! Let's try it again...", 100, 80)
+    time.sleep(3)
+    startScreen()    
                     
 def playGame():
     startScreen()
@@ -154,4 +181,5 @@ def playGame():
     while True:
         computerTurn()
         playerTurn()
+        # fix to add in True and False returns of playerTurn()
 playGame()
