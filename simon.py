@@ -7,6 +7,7 @@ import time
 sqaures = [(100, 100), (100, 300), (300, 100), (300, 300)]
 
 DARK_YELLOW = color(198, 187, 35)
+ORANGE = color(225, 128, 0)
 colors = [(GREEN, DARK_GREEN), (YELLOW, DARK_YELLOW), (RED, DARK_RED), (BLUE, DARK_BLUE)]
 order = []
 
@@ -23,16 +24,18 @@ def startScreen():
     setBackground(BEIGE)    
     
     # words
+    #setColor(WHITE)
     setFontSize(32)
-    string("SIMON", 250, 30)
-    string("Try to copy the sequence!", 115, 60)
+    #string("SIMON", 250, 275)
+    string("Try to copy the sequence!", 115, 30)
     
     # board
+    drawSq(BLACK, 80, 80, 440)
     drawSq(DARK_GREEN, 100, 100, width)
     drawSq(DARK_YELLOW, 100, 300, width)
     drawSq(DARK_RED, 300, 100, width)
     drawSq(DARK_BLUE, 300, 300, width)
-    drawCircle()
+    drawCircle()  
 
 # function that takes in the color of a tile, the x, y coordinates and width
 # and draw the square
@@ -47,12 +50,31 @@ def drawCircle():
     # the x, y = 250, diameter = 75
     filledOval(250, 250, 110, 110)
     
+    # draw words inside the circle
+    setColor(WHITE)
+    setFontSize(25)
+    string("SIMON", 265, 280)   
+    
+    # start button
+    setColor(ORANGE)
+    filledRect(280, 310, 50, 28)
+    setColor(BLACK)
+    setFontSize(14)
+    string("START", 283, 315)
+    
 def checkMousePressed():
     return mouseX(), mouseY()
 
 def lightUp(index):
     changeShade(colors[index][0], sqaures[index][0], sqaures[index][1], width)
     changeShade(colors[index][1], sqaures[index][0], sqaures[index][1], width)    
+    
+def pressedStart():
+    x, y = checkMousePressed()
+    
+    if 280 <= x <= 330 and 310 <= y <= 338:
+        return True
+    return False
     
 def computerTurn(tryAgain=False):
     global width
@@ -190,6 +212,7 @@ def showFailMessage():
 def playGame():
     startScreen()
     time.sleep(2) # pause after startup before showing sequence
+    #if pressedStart():
     while True:
         computerTurn()
         status = playerTurn()
