@@ -70,11 +70,12 @@ def lightUp(index):
     changeShade(colors[index][1], sqaures[index][0], sqaures[index][1], width)    
     
 def pressedStart():
-    x, y = checkMousePressed()
-    
-    if 280 <= x <= 330 and 310 <= y <= 338:
-        return True
-    return False
+    if mousePressed():
+        x, y = checkMousePressed()
+        
+        if 280 <= x <= 330 and 310 <= y <= 338:
+            return True
+        return False
     
 def computerTurn(tryAgain=False):
     global width
@@ -212,10 +213,12 @@ def showFailMessage():
 def playGame():
     startScreen()
     time.sleep(2) # pause after startup before showing sequence
-    #if pressedStart():
     while True:
-        computerTurn()
-        status = playerTurn()
-        if not status:
-            computerTurn(tryAgain = True)   # giving the player a chance to do the same one again
+        if pressedStart():
+            time.sleep(.00001) # pause between starting
+            computerTurn()
+            status = playerTurn()
+            if not status:
+                computerTurn(tryAgain = True)   # giving the player a chance to do the same one again
+
 playGame()
